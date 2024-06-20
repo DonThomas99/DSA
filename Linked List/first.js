@@ -193,23 +193,85 @@ reverse()
              console.log(listval)
         }
      }
+
+     makeCircular(){
+        if(this.isempty()){
+            return
+        }
+        let curr = this.head
+        while(curr.next){
+            curr = curr.next
+        }
+        curr.next = this.head
+     }
     
-} 
+     isCircular() {
+        if (this.isempty()) {
+            return false;
+        }
+        let slow = this.head;
+        let fast = this.head;
+        while (fast && fast.next) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow === fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    sortMiddle(k){
+        if(this.isempty() || k<=0){
+            return 
+        }
+        let middleIndex = Math.floor(this.size /2)
+        let start = Math.max(0,middleIndex - Math.floor(k / 2))
+        console.log('start:',start)
+        let end  = Math.min(this.size - 1, start + k - 1)
+        console.log('end:',end)
+        let elements = []
+        let curr = this.head
+        for(let i = 0; i<= end; i++){
+            if(i >= start){
+                elements.push(curr.value)
+            }
+            curr = curr.next
+        }
+        elements.sort((a, b)=>a -b)
+        curr = this.head
+        let elementIndex =0
+        for(let i=0;i<= end; i++){
+            if(i>=start){
+                curr.value = elements[elementIndex++]
+            }
+            curr = curr.next
+        }
+    }
+
+    } 
 
 const list = new Linkedlist()
 //console.log('List is empty', list.isempty() )
 //console.log('List Size', list.getsize())
 //list.print()
-list.append(10)
-list.append(20)
-list.append(30)
-list.append(40)
-list.append(50)
-list.append(60)
+list.append(34)
+list.append(7)
+list.append(23)
+list.append(32)
+list.append(5)
+list.append(62)
+list.append(19)
+list.append(11)
+list.append(45)
+list.append(98)
 list.print()
 //list.removevalue(10)
 //console.log('Search for index of 50:')
 //console.log(list.search(50))
 //list.print()
-list.reverse()
+// list.reverse()
+list.sortMiddle(4)
 list.print()
+// list.makeCircular()
+// console.log(list.isCircular())
