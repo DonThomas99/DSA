@@ -21,7 +21,7 @@ class Tree
 
     insertion(value)
     { const node = new Node(value)
-        if(this.isempty())
+       if(this.isempty())
         {
             this.root = node 
         }else{
@@ -208,16 +208,60 @@ class Tree
           this.isBSTUtil(node.right, node.value, max)
         );
       }
+        sum(root){
+            if(root == null){
+                return 0
+            }
+            return root.value + this.sum(root.left) + this.sum(root.right) 
+        }
+
+        countNodes(root){
+            if(root == null ){
+                return 0
+            }
+            return 1 + this.countNodes(root.left) + this.countNodes(root.right)
+        }
+
+    leafNodeCount(root){
+        if(root == null){
+            return 0
+        }
+        if(root.right == null && root.left == null){
+            return 1
+        }
+        return this.leafNodeCount(root.left) + this.leafNodeCount(root.right)
+    }
+    treeHeight(root){
+        if(root == null){
+            return -1
+        }
+        const leftHeight = this.treeHeight(root.left)
+        const rightHeight = this.treeHeight(root.right)
+        return Math.max(leftHeight,rightHeight) + 1
+    }
+
 
 
 }
 const N = new Tree
-N.insertion(10)
-N.insertion(5)
-N.insertion(15)
+N.insertion(1)
+N.insertion(2)
 N.insertion(3)
+N.insertion(4)
+N.insertion(5)
+N.insertion(6)
 N.insertion(7)
-console.log("Is this a Binary search Tree:",N.isBST())
+N.insertion(8)
+N.insertion(9)
+console.log(N.treeHeight(N.root))
+// N.postorder(N.root)
+
+// console.log("Is this a Binary search Tree:",N.isBST())
+// console.log(
+
+//     // N.countNodes(N.root)
+//     // N.leafNodeCount(N.root)
+// )
 
 
 

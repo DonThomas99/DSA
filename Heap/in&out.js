@@ -46,16 +46,7 @@ class BinaryHeap {
         this.heapify(this.values)
         return max
     }
-    heapsort(arr) {
-      const n = arr.length
-      for(let i = Math.floor(n/2)-1;i>=0;i--)
-      this.maxHeapify(arr)
-      for(let i = n-1;i>=0;i--){
-      [arr[0],arr[i]] = [arr[i],arr[0]]
-          this.maxHeapify(arr,i,0)
-      }
-      return arr
-    }*
+ 
      heapsort(arr) {
     const n = arr.length;
     
@@ -78,8 +69,16 @@ class BinaryHeap {
   let bin = new BinaryHeap()
   bin.insert(50)
   bin.insert(63)
+  bin.insert(32)
   bin.insert(77)
+  bin.insert(10)
+  bin.insert(4)
+  bin.insert(9)
   bin.insert(42)
   bin.insert(98)
-  console.log("Sorted array:",bin.heapsort(bin.values))
+  bin.insert(5)
+  // console.log("Sorted array:",bin.heapsort(bin.values))
+  bin.extractMax()
+
+  console.log(bin.values)
   

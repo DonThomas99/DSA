@@ -227,9 +227,7 @@ reverse()
         }
         let middleIndex = Math.floor(this.size /2)
         let start = Math.max(0,middleIndex - Math.floor(k / 2))
-        console.log('start:',start)
         let end  = Math.min(this.size - 1, start + k - 1)
-        console.log('end:',end)
         let elements = []
         let curr = this.head
         for(let i = 0; i<= end; i++){
@@ -249,29 +247,46 @@ reverse()
         }
     }
 
+    removeDuplicates(){
+        let curr = this.head
+        while(curr){
+            let testValue = curr.value
+            let curr2 = curr
+            while(curr2.next){
+                if(testValue === curr2.next.value){
+                    curr2.next = curr2.next.next
+                } else{
+                    curr2 = curr2.next
+                }
+            }
+            curr = curr.next
+        }
+    }
+
     } 
 
 const list = new Linkedlist()
 //console.log('List is empty', list.isempty() )
 //console.log('List Size', list.getsize())
 //list.print()
-list.append(34)
-list.append(7)
-list.append(23)
-list.append(32)
+list.append(3)
 list.append(5)
-list.append(62)
-list.append(19)
-list.append(11)
-list.append(45)
-list.append(98)
+list.append(2)
+list.append(3)
+list.append(7)
+list.append(5)
+list.append(9)
+list.append(2)
+list.append(1)
+list.append(3)
 list.print()
+list.removeDuplicates()
 //list.removevalue(10)
 //console.log('Search for index of 50:')
 //console.log(list.search(50))
 //list.print()
 // list.reverse()
-list.sortMiddle(4)
+// list.sortMiddle(4)
 list.print()
 // list.makeCircular()
 // console.log(list.isCircular())

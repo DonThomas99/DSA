@@ -32,6 +32,10 @@ class MaxStack {
       }
       return this.maxElement;
     }
+    print(){
+      for(let i=0;i<this.stack.length;i++)
+      console.log(this.stack[i])
+    }
     
   }
 const stack = new MaxStack
@@ -40,5 +44,7 @@ stack.push(2)
 stack.push(3)
 stack.push(4)
 stack.push(5)
+stack.push(0)
 
-console.log("Largest element is:",stack.getMax())
+stack.print()
+// console.log("Largest element is:",stack.getMax())

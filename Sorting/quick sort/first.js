@@ -16,8 +16,8 @@ function quickSort(arr)
         }
     }
     return [...quickSort(left),pivot,...quickSort(right)]
-}
-arr = [27,21,5,9,8,2,12,15]
+}[
+arr = 27,21,5,9,8,2,12,15]
 a = arr.filter( c =>c%3 == 0 )
 let sortedArray=quickSort(a)
 console.log(sortedArray);

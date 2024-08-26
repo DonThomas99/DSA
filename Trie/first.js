@@ -86,7 +86,7 @@ class trie
             const childrenKeys = Object.keys(node.children)
             for (let i = 0; i < childrenKeys.length; i++) {
               const char = childrenKeys[i]
-              traverse(node.children[char], word + char)
+        traverse(node.children[char], word + char)
             }
           }
           
