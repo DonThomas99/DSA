@@ -12,7 +12,7 @@ function heapify(arr,n,i){
   
   if(largest != i ){
     [arr[i],arr[largest]] = [arr[largest],arr[i]]
-
+    console.log(arr,i)
     heapify(arr,n,largest)
     
   }
@@ -23,6 +23,7 @@ function heapSort(arr){
   let n = arr.length
   for(let i=n- 1;i>=0;i--){
     heapify(arr,n,i)
+    
   }
   
   for(let i = n-1;i>=0;i--){

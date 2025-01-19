@@ -263,6 +263,24 @@ reverse()
         }
     }
 
+    removeOddNumbers(){
+        while(this.head && this.head.value %2 !==0){
+            this.head = this.head.next
+            this.size--
+        }
+        let curr = this.head 
+        while(curr.next){
+            if(curr.next.value % 2 !==0){
+                curr.next = curr.next.next
+            }else{
+                curr = curr.next
+            }
+        }
+        if(this.tail == null){
+            this.tail = curr
+        }
+    }
+
     } 
 
 const list = new Linkedlist()
@@ -280,7 +298,8 @@ list.append(2)
 list.append(1)
 list.append(3)
 list.print()
-list.removeDuplicates()
+// list.removeDuplicates()
+list.removeOddNumbers()
 //list.removevalue(10)
 //console.log('Search for index of 50:')
 //console.log(list.search(50))

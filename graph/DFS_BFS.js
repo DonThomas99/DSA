@@ -10,7 +10,7 @@ class graph
         {
             this.adjacencyList[vertex] = new Set()
         }
-    }
+    }   
 
     addEdge(vertex1,vertex2)
     {
@@ -93,12 +93,49 @@ class graph
             }
         }return result
     }
+
+    isCyclicUtil(vertex,visited,parent){
+        visited[vertex] = true
+        for(let neighbour of this.adjacencyList[vertex]){
+            if(!visited[neighbour]){
+                if(this.isCyclicUtil(neighbour, visited, vertex)){
+                    return true
+                }
+            }else if(neighbour !== parent){
+                return true
+            }
+        }
+        return false
+    }
+    
+    isCyclic(){
+        const visited = {}
+        for(let vertex in this.adjacencyList){
+            if(!visited[vertex]){
+                if(this.isCyclicUtil(vertex,visited,null)){
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
 }
 const g = new graph()
-g.addvertex("A")
-g.addvertex("B")
-g.addvertex("C")
-g.addEdge("A","B")
-g.addEdge("B","C")
-g.addEdge("C","A")
+g.addvertex(5)
+g.addvertex(10)
+g.addvertex(20)
+g.addvertex(30)
+g.addvertex(40)
+g.addvertex(68)
+g.addvertex(90)
+g.addEdge(5,10)
+g.addEdge(10,20)
+g.addEdge(20,30)
+g.addEdge(20,68)
+g.addEdge(30,40)
+g.addEdge(68,90) 
+// g.addEdge(90,5)
+console.log(g.isCyclic())
+
 console.log(g.display())

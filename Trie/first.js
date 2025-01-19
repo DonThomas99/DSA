@@ -118,6 +118,59 @@ class trie
         return longestWord
       }
 
+      startsWith(prefix){
+        const nodes =[]
+        function traverse(node,word){
+          if(node.iswordend && word.startsWith(prefix)){
+            nodes.push(word)
+          }
+          const childrenKeys = Object.keys(node.children)
+          for(let i =0;i<childrenKeys.length;i++){
+            let char = childrenKeys[i]
+            traverse(node.children[char],word + char)
+          }
+        }
+        traverse(this.root,'')
+        return nodes
+      }
+
+      delete(word){
+        function deleteHelper(node,word,depth){
+          if(!node){
+            return false
+          }
+          if(depth == word.length){
+            if(!node.iswordend){
+              return false
+            }
+            node.iswordend = false
+            return Object.keys(node.children).length ===0
+          }
+          let char = word[depth]
+          if(!deleteHelper(node.children[char],word,depth+1)){
+            return false
+          }
+          delete node.children[char]
+          return Object.keys(node.children).length === 0 && !node.iswordend
+        }
+        deleteHelper(this.root,word,0)
+      }
+
+      display(){
+        let words = []
+        function traverse(node,word){
+          if(node.iswordend){
+            words.push(word)
+          }
+          let childrenKeys = Object.keys(node.children)
+          for(let i=0;i<childrenKeys.length;i++){
+            let char = childrenKeys[i]
+            traverse(node.children[char],word+char)
+          }
+        }
+        traverse(this.root,'')
+        console.log(words);
+      }
 
 }
 const n = new trie()
@@ -126,5 +179,8 @@ n.insert("orange")
 n.insert("banana")
 n.insert("grape")
 n.insert("google")
-console.log("Find the word(s) ending with 'a':", n.endswithsuffix("a"));
+n.display()
+n.delete("apple")
+n.display()
+console.log("Find the word(s) ending with 'a':", n.startsWith("a"));
 

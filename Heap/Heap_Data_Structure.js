@@ -13,6 +13,7 @@ class Heap{
             [this.heap[parentIndex],this.heap[index]] = [this.heap[index],this.heap[parentIndex]]
             this.heapifyUp(parentIndex)
         }       
+        
     }
 
     heapifyDown(index){

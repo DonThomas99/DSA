@@ -10,7 +10,7 @@ class Stack
   } 
   pop()
   {
-    this.items.pop()
+    return this.items.pop()
   } 
   peek()
   {
@@ -28,12 +28,24 @@ class Stack
   {
     console.log(this.items.toString())
   }
+  sortIt(){
+    const tempStk = new Stack()
+    while(!this.isempty()){
+      tempStk.push(this.pop())
+    }
+    while(!tempStk.isempty()){
+      let tempVal = tempStk.pop()
+      while(!this.isempty() && this.peek() > tempVal){
+        tempStk.push(this.pop())
+
+      }
+      this.push(tempVal)
+    }
+  }
 }
 
 const stack = new Stack
-stack.push(10)
-stack.push(20)
-stack.push(30)
+
+stack.items = [43, 12, 5, 21, 67, 89, 90, 34, 7]
+stack.sortIt()
 stack.print()
-// stack.pop()  
-// stack.print()
