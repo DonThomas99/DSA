@@ -1,30 +1,24 @@
-function recursiveBinarySearch(arr,num)
-{
-return search(arr,num,0,arr.length - 1)
+function recursiveBinarySearch(arr,num){
+  let left = 0
+  let right = arr.length - 1
+  return search(arr,num,left,right)
 }
-
-
-function search(arr,num,l_i,r_i)
-{
-  if(l_i > r_i)
-  {
-    return -1
-  }
-  let m_i = Math.floor((l_i + r_i)/2)
-  if(num === arr[m_i])
-  {
-    return m_i
-  }
-if(num < arr[m_i])
-  {
-   return search (arr,num,l_i,m_i-1)
-}
-else
-{
-   return search (arr,num,m_i+1,r_i)
+function search(arr,num,left,right){
+  if(left > right || right < left) return false
+let mid = Math.floor((left + right)/2)
+if(arr[mid] === num){
+  return true
+}else if(arr[mid] < num){
+  left = mid + 1
+  return search(arr,num,left,right)
+}else if(arr[mid] > num){
+  right = mid -1 
+  return search(arr,num,left,right)
+}else{
+  
+  return false
 }
 }
-
 
  
- console.log(recursiveBinarySearch([-5,2,4,6,10],6))
+ console.log(recursiveBinarySearch([-5,2,4,6,10],7))

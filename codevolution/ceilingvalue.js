@@ -22,4 +22,4 @@ else
 return c_num
 
  }
- console.log(BinarySearch([-5,2,4,6,10],8))
+ console.log(BinarySearch([-5,2,4,6,8,10],8))

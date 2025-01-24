@@ -1,5 +1,6 @@
 function BinarySearch(arr,num)
-{
+{ 
+  let f_num
   let l_i = 0 //left index
   let r_i = arr.length-1 //right index
 while(l_i <= r_i)
