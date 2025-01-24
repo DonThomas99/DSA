@@ -1,11 +1,6 @@
-function recursivefibon (n)
-{
-    if(n<2)
-    { 
-        return n
-    }
-    console.log(n);
-    return recursivefibon(n-1) + recursivefibon(n-2)
-
+function recursiveFibon(limit, a=0,b=1,series=[]){
+    if(series.length -1 === limit)return series
+    series.push(a)
+    return recursiveFibon(limit,b,a+b,series)
 }
-console.log(recursivefibon(6))
+console.log(recursiveFibon(20))
