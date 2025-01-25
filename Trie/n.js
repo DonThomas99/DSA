@@ -73,5 +73,4 @@ class Node {
   n.insert("grape");
   n.insert("google");
   
-  console.log("Words with the prefix 'g':", n.startswithprefix("g"));
-  
+  console.log("Words with the prefix 'g':", n.startswithprefix("g")) 
