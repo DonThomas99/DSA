@@ -1,141 +1,125 @@
-class graph
-{
-    constructor()
-    {
+class graph{
+    
+    constructor(){
         this.adjacencyList = {}
     }
-    addvertex(vertex)
-    {
-        if(!this.adjacencyList[vertex])
-        {
-            this.adjacencyList[vertex] = new Set()
+    
+    addVertex(vertex){
+        if(this.adjacencyList[vertex]){
+            console.log('element exist');
+            return
         }
-    }   
-
-    addEdge(vertex1,vertex2)
-    {
-        if(!this.adjacencyList[vertex1]){
-        this.addvertex(vertex1)
-    }
-        if(!this.adjacencyList[vertex2]){
-        this.addvertex(vertex2)
-    }
-    this.adjacencyList[vertex1].add(vertex2)
-    this.adjacencyList[vertex2].add(vertex1)
-
-    }
-    display()
-    {
-        for( let vertex in this.adjacencyList)
-        {
-            console.log(vertex +"->"+[...this.adjacencyList[vertex]])
-        }
-    }
- 
-    HasEdge(vertex1,vertex2)
-    {
-        return (
-            this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].has(vertex1)
-            )
+        this.adjacencyList[vertex] = new Set()
     }
     
-    Edgeremoval(vertex1,vertex2)
-    {
+    addEdge(vertex1,vertex2){
+        if(!this.adjacencyList[vertex1])this.addVertex(vertex1)
+        if(!this.adjacencyList[vertex2])this.addVertex(vertex2)
+            this.adjacencyList[vertex1].add(vertex2)
+            this.adjacencyList[vertex2].add(vertex1)
+    }
+    
+    hasEdge(vertex1,vertex2){
+        return this.adjacencyList[vertex1].has(vertex2) && this.adjacencyList[vertex2].add(vertex1)
+    }
+    
+    edgeRemoval(vertex1,vertex2){
         this.adjacencyList[vertex1].delete(vertex2)
         this.adjacencyList[vertex2].delete(vertex1)
     }
-    Vertexremoval(vertex)
-    {
-        if(!this.adjacencyList[vertex])
-        {
-            console.log("Vertex not found")
-            return
-        }
-        for(let adjacentvertex of this.adjacencyList[vertex]){
-            this.Edgeremoval(vertex,adjacentvertex)
+    
+    vertexRemoval(vertex){
+        for(let adjacentVertex of this.adjacencyList[vertex]){
+            this.edgeRemoval(adjacentVertex,vertex)
         }
         delete this.adjacencyList[vertex]
     }
-
-
+    
+    
     bfs(startVertex){
-        const visited=[]
-        const queue=[]
-        const result=[]
-        visited[startVertex]=true
+        const visited = []
+        const queue = []
+        const result = []
+        visited[startVertex] = true
         queue.push(startVertex)
-        while(queue.length>0){
-            const vertex=queue.shift()
-            result.push(vertex)
-        for(let neighbour of this.adjacencyList[vertex]){
-            if(!visited[neighbour]){
-                visited[neighbour]=true
-                queue.push(neighbour)
-            }
-        }
-        }return result
-    }
-
-    dfs(startVertex){
-        const visited={}
-        const stack=[]
-        const result=[]
-        visited[startVertex]=true
-        stack.push(startVertex)
-        while(stack.length>0){
-            const vertex=stack.pop()
+        while(queue.length > 0){
+            let vertex = queue.shift()
             result.push(vertex)
             for(let neighbour of this.adjacencyList[vertex]){
                 if(!visited[neighbour]){
-                    visited[neighbour]=true
+                    visited[neighbour] = true
+                    queue.push(neighbour)
+                }
+            }
+        }
+        return result 
+    }
+
+    dfs(startVertex){
+        const visited = []
+        const result = []
+        const stack = []
+        visited[startVertex] = true
+        queue.push(startVertex)
+        while(stack.length>0){
+            let vertex = stack.pop()
+            result.push(vertex)
+            for(let neighbour of this.adjacencyList[vertex]){
+                if(!visited[neighbour]){
+                    visited[neighbour] = true
                     stack.push(neighbour)
                 }
             }
-        }return result
+        }
+        return result 
     }
 
+    isCyclic(){
+        const visited = []
+        for(let vertex in this.adjacencyList){
+            if(!visited[vertex.toString()]){
+                if(this.isCyclicUtil(vertex,visited,null))
+                    return true
+            }
+        }
+        return false
+    }
+    
     isCyclicUtil(vertex,visited,parent){
         visited[vertex] = true
         for(let neighbour of this.adjacencyList[vertex]){
             if(!visited[neighbour]){
-                if(this.isCyclicUtil(neighbour, visited, vertex)){
+                if(this.isCyclicUtil(neighbour,visited,vertex)){
                     return true
                 }
-            }else if(neighbour !== parent){
+            }else if(neighbour.toString() !== (parent ? parent.toString():null)){
                 return true
             }
         }
         return false
     }
-    
-    isCyclic(){
-        const visited = {}
+
+    display(){
         for(let vertex in this.adjacencyList){
-            if(!visited[vertex]){
-                if(this.isCyclicUtil(vertex,visited,null)){
-                    return true
-                }
-            }
+            console.log(vertex + "->" + [...this.adjacencyList[vertex]]);
         }
-        return false
     }
 
 }
-const g = new graph()
-g.addvertex(5)
-g.addvertex(10)
-g.addvertex(20)
-g.addvertex(30)
-g.addvertex(40)
-g.addvertex(68)
-g.addvertex(90)
+
+const g = new graph
+
 g.addEdge(5,10)
 g.addEdge(10,20)
 g.addEdge(20,30)
 g.addEdge(20,68)
 g.addEdge(30,40)
-g.addEdge(68,90) 
-// g.addEdge(90,5)
-console.log(g.isCyclic())
+g.addEdge(68,90)
+g.addEdge(68,90)
+// g.addEdge(5,90)
 
-console.log(g.display())
+g.display()
+// console.log(g.isCyclic());
+g.edgeRemoval(5)
+console.log("new list");
+g.display()
