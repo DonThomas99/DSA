@@ -48,4 +48,4 @@ const stack = new Stack
 
 stack.items = [43, 12, 5, 21, 67, 89, 90, 34, 7]
 stack.sortIt()
-stack.print()ii
+stack.print()
